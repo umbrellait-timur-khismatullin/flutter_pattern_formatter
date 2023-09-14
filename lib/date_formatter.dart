@@ -13,7 +13,7 @@ const INDEX_NOT_FOUND = -1;
 /// placeholder characters by user's input.
 ///
 class DateInputFormatter extends TextInputFormatter {
-  String _placeholder = '--/--/----';
+  String _placeholder = '__.__.____';
   TextEditingValue? _lastNewValue;
 
   @override
@@ -68,8 +68,8 @@ class DateInputFormatter extends TextInputFormatter {
       }
     } else if (oldText.length > newText.length) {
       /// delete digit
-      if (oldText[index] != '/') {
-        resultText = oldText.replaceRange(index, index + 1, '-');
+      if (oldText[index] != '.') {
+        resultText = oldText.replaceRange(index, index + 1, '_');
         if (offset == 3 || offset == 6) {
           offset--;
         }
@@ -79,12 +79,12 @@ class DateInputFormatter extends TextInputFormatter {
     }
 
     /// verify the number and position of splash character
-    final splashes = resultText!.replaceAll(RegExp(r'[^/]'), '');
+    final splashes = resultText!.replaceAll(RegExp(r'[^.]'), '');
     int count = splashes.length;
     if (resultText.length > 10 ||
         count != 2 ||
-        resultText[2].toString() != '/' ||
-        resultText[5].toString() != '/') {
+        resultText[2].toString() != '.' ||
+        resultText[5].toString() != '.') {
       return oldValue;
     }
 
